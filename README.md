@@ -1,12 +1,12 @@
 # Industrial Networks demo
 
 ```mermaid
-graph TB
+flowchart
     subgraph ConsolePanel[Console Panel]
-        Monitor
-        Switch_rpi["RPI (switch)"]
-        Main_rpi["RPI (main)"] --> Monitor
-        Main_rpi <--> Switch_rpi
+        Switch_rpi["RPI (PoE switch)"]
+        Main_rpi <--T1L--> Switch_rpi
+        Main_rpi["RPI (main)"] --HDMI--> Monitor
+        Main_rpi <--USB--> T1LUSB
     end
 
     subgraph SWIOPanel[SWIO Panel]
@@ -16,13 +16,12 @@ graph TB
         TemperatureProbe
         SWIO
         SWIO --> Potentiometer
-        SWIO --> LinearActuator
+        SWIO --4-20 mA--> LinearActuator
         subgraph MAX-Arduino
             Screen
         end
-        MAT1L[T1LUSB] --> MAX-Arduino
-        MAX-Arduino --> PHProbe
-        MAX-Arduino --> TemperatureProbe
+        MAX-Arduino --CN0326--> PHProbe[pH Probe]
+        MAX-Arduino --CN0326--> TemperatureProbe[Temperature Probe]
     end
 
     subgraph PQMonPanel[PQMon Panel]
@@ -30,8 +29,8 @@ graph TB
     end
 
 
-    Switch_rpi <--> SWIO
-    Switch_rpi <--> MAT1L
-    Main_rpi <--> PQMON
+    Switch_rpi <--T1L--> SWIO
+    T1LUSB <--T1L--> MAX-Arduino
+    Main_rpi <--USB--> PQMON
 ```
 
