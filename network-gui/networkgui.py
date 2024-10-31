@@ -54,13 +54,15 @@ ax2 : axes.Axes = ax2
 ax1.set_title('Incoming packets')
 swio_incoming, = ax1.plot([0, 0], [0, 0], color='#e5aa09', label='SWIO (eth0)')
 max_incoming, = ax1.plot([0, 0], [0, 0], color='#0982e5', label='MAX (eth1)')
-ax1.set_ybound(0, 100)
+ax1.set_ybound(0, 150)
+ax1.grid()
 ax1.legend()
 
 ax2.set_title('Outgoing packets')
 swio_outgoing, = ax2.plot([0, 0], [0, 0], color='#e5aa09', label='SWIO (eth0)')
 max_outgoing, = ax2.plot([0, 0], [0, 0], color='#0982e5', label='MAX (eth1)')
 ax2.set_ybound(0, 100)
+ax2.grid()
 ax2.legend()
 
 ts = [0]
@@ -94,7 +96,6 @@ while True:
     for name, iface in ifaces.items():
         print(f'| {iface} {ifaces["eth0"].stats=} {ifaces["eth1"].stats=}', end=' ')
     print()
-    
 
     ts.append(t)
     si.append(ifaces['eth0'].stats[0] / dt)
