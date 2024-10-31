@@ -17,4 +17,4 @@ sudo ip link set eth0 up
 sudo ip address add $ETH0_IP/16 dev eth0
 sudo ip route del 169.254.0.0/16 # Delete previous routes
 sudo ip route add 169.254.0.0/16 via $ETH0_IP dev eth0
-
+sudo ip route add 192.168.10.1 via 169.254.11.117
